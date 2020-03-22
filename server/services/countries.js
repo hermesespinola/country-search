@@ -5,7 +5,7 @@ const countriesFile = fs.readFileSync(countriesFilePath, 'utf8');
 const contents = JSON.parse(countriesFile);
 
 const countriesMetadata = contents.countries.map(
-    ({ name, lat, lng }) => ({ name, lat, lng }),
+    ({ name, postal, lat, lng }) => ({ name, postal, lat, lng }),
 );
 
 // TODO: index based in location
@@ -17,7 +17,6 @@ const countriesService = {
      * @param {{ lat: number, lng: string }} location
      */
     closestCountries(k, location) {
-        countriesMetadata[0].name;
         console.log('req location:', location);
         return countriesMetadata.slice(0, k);
     },
