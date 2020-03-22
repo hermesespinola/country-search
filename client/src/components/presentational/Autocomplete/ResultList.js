@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 import './ResultList.css';
 
@@ -7,5 +8,9 @@ const ResultList = ({ children }) => (
         {children}
     </div>
 );
+
+ResultList.propTypes = {
+    children: PropTypes.node.isRequired,
+};
 
 export default ResultList;

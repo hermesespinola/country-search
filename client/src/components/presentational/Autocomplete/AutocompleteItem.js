@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './AutocompleteItem.css';
 
@@ -7,5 +8,10 @@ const AutocompleteItem = ({ children, onClick }) => (
         {children}
     </div>
 );
+
+AutocompleteItem.propTypes = {
+    children: PropTypes.node.isRequired,
+    onClick: PropTypes.func,
+};
 
 export default AutocompleteItem;

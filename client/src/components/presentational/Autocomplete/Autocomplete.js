@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ResultList from './ResultList';
 import Label from '../Label';
@@ -20,5 +21,13 @@ const Autocomplete = ({ children, label, placeholder, value, onChange }) => (
         </ResultList>
     </div>
 );
+
+Autocomplete.propTypes = {
+    children: PropTypes.node.isRequired,
+    label: PropTypes.string,
+    placeholder: PropTypes.string,
+    value: PropTypes.string,
+    onChange: PropTypes.func,
+};
 
 export default Autocomplete;
