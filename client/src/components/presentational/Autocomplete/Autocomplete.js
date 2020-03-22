@@ -10,7 +10,9 @@ const Autocomplete = ({ children, label, value, onChange }) => (
         <input
             className="autocomplete-input"
             value={value}
-            onChange={onChange}
+            onChange={(event) => {
+                onChange(event.target.value);
+            }}
         />
         <ResultList>
             {children}

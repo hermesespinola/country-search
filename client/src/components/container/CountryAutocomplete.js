@@ -7,25 +7,28 @@ import { useDebounce } from '../../hooks';
 const CountryAutocomplete = () => {
     const [debouncedQuery, query, setQuery] = useDebounce('', 300);
     const [countries, setCountries] = useState([]);
+    const [showResults, setShowResults] = useState(true);
 
     useEffect(() => {
-        if (!debouncedQuery) {
-            setCountries([]);
+        if (!debouncedQuery || !showResults) {
             return;
         }
 
-        autcompleteClosestCountries(debouncedQuery)
-            .then(countries => {
-                setCountries(countries);
-                console.log(countries);
-            });
-    }, [debouncedQuery]);
+        autcompleteClosestCountries(debouncedQuery).then(setCountries);
+    }, [debouncedQuery, countries.length]);
 
     const renderCountryItem = ({ postal, name }) => {
         const matchingText = name.substr(0, query.length);
         const text = name.substr(query.length);
         return (
-            <AutocompleteItem key={`${postal}-${name}`}>
+            <AutocompleteItem
+                key={`${postal}-${name}`}
+                onClick={() => {
+                    setShowResults(false);
+                    setCountries([]);
+                    setQuery(name);
+                }}
+                >
                 <strong>{matchingText}</strong>
                 {text}
             </AutocompleteItem>
@@ -36,11 +39,14 @@ const CountryAutocomplete = () => {
         <Autocomplete
             label="Find the closest country"
             value={query}
-            onChange={(event) => {
-                setQuery(event.target.value);
+            onChange={(value) => {
+                if (!showResults) {
+                    setShowResults(true);
+                }
+                setQuery(value);
             }}
         >
-            {countries.map(renderCountryItem)}
+            {showResults && countries.map(renderCountryItem)}
         </Autocomplete>
     );
 };

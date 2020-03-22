@@ -2,8 +2,8 @@ import React from 'react';
 
 import './AutocompleteItem.css';
 
-const AutocompleteItem = ({ children }) => (
-    <div className="autocomplete-item">
+const AutocompleteItem = ({ children, onClick }) => (
+    <div className="autocomplete-item" onClick={onClick}>
         {children}
     </div>
 );
