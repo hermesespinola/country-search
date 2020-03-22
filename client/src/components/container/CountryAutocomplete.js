@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Autocomplete, { AutocompleteItem } from '../presentational/Autocomplete';
-import { autcompleteClosestCountries } from '../../api';
+import { autocompleteClosestCountries } from '../../api';
 import { useDebounce } from '../../hooks';
 
 const CountryAutocomplete = () => {
@@ -15,11 +15,15 @@ const CountryAutocomplete = () => {
         // Don't fetch data if the query is empty or
         // if we don't want to show the results.
         if (!debouncedQuery || !showResults) {
+            if (countries.length > 0) {
+                setCountries([]);
+            }
+
             return;
         }
 
-        autcompleteClosestCountries(debouncedQuery).then(setCountries);
-    }, [debouncedQuery, countries.length]);
+        autocompleteClosestCountries(debouncedQuery).then(setCountries);
+    }, [debouncedQuery, showResults, countries.length]);
 
     const renderCountryItem = ({ postal, name }) => {
         const matchingText = name.substr(0, query.length);
