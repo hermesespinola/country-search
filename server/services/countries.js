@@ -4,13 +4,13 @@ const countriesFile = fs.readFileSync(process.env.COUNTRIES_FILE, 'utf8');
 const contents = JSON.parse(countriesFile);
 
 /**
- * @typedef {{ name: string, postal: string, lat: number, lng: number }} Country
+ * @typedef {{ name: string, postal: string, flag: string, lat: number, lng: number }} Country
  * @typedef {{ lat: number, lng: string }} LatLng
  */
 
 /** @type {Country[]} */
 const countriesMetadata = contents.countries.map(
-    ({ name, postal, lat, lng }) => ({ name, postal, lat, lng }),
+    ({ name, postal, flag_png, lat, lng }) => ({ name, postal, flag: flag_png, lat, lng }),
 );
 
 const countriesService = {
@@ -24,6 +24,9 @@ const countriesService = {
         const nameStartsWithQuery = ({ name }) => name.toLowerCase().startsWith(queryLower);
         const closestToLocation = (c1, c2) => geoDistance(c1, location) - geoDistance(c2, location);
 
+        // First, filter names that start with query
+        // then sort by closest to `location`
+        // and finally return the first `limit` countries
         const countriesMatch = countriesMetadata
             .filter(nameStartsWithQuery)
             .sort(closestToLocation)

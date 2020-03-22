@@ -15,12 +15,12 @@ const locationService = {
      * @returns {{ lat: number, lng: number }} the current location.
      */
     async getLocation(ip = 'check') {
+        // If the request comes from localhost, use 'check' to retrieve the host machine location.
         const address = ip === LOCALHOST_ADDRESS ? 'check' : ip;
         try {
             const url = `${locationEndpoint}/${address}?access_key=${locationAccessKey}`;
             const { body: location } = await get({ url, json: true });
             const { latitude: lat, longitude: lng } = location;
-            console.log('location:', location);
             return { lat, lng };
         } catch (error) {
             console.error(error);

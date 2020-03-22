@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Autocomplete, { AutocompleteItem } from '../presentational/Autocomplete';
+import CountryFlag from '../presentational/CountryFlag';
 import { autocompleteClosestCountries } from '../../api';
 import { useDebounce } from '../../hooks';
 
@@ -25,7 +26,7 @@ const CountryAutocomplete = () => {
         autocompleteClosestCountries(debouncedQuery).then(setCountries);
     }, [debouncedQuery, showResults, countries.length]);
 
-    const renderCountryItem = ({ postal, name }) => {
+    const renderCountryItem = ({ postal, name, flag }) => {
         const matchingText = name.substr(0, query.length);
         const text = name.substr(query.length);
         return (
@@ -38,7 +39,8 @@ const CountryAutocomplete = () => {
                     setCountries([]);
                     setQuery(name);
                 }}
-                >
+            >
+                <CountryFlag base64={flag} name={name} />
                 <strong>{matchingText}</strong>
                 {text}
             </AutocompleteItem>
