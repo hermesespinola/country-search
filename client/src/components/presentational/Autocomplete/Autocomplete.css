@@ -1,0 +1,9 @@
+.autocomplete-container {
+    display: inline-block;
+}
+
+.autocomplete {
+    background-color: #f1f1f1;
+    border: none;
+    font-size: 25px;
+}

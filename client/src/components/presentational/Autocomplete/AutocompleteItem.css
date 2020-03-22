@@ -1,0 +1,6 @@
+.autocomplete-item {
+    border: 1px solid lightgray;
+    border-top: none;
+    text-align: left;
+    padding: 10px;
+}
