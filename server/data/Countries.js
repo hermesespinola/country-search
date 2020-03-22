@@ -13,7 +13,7 @@ const countriesMetadata = contents.countries.map(
     ({ name, postal, flag_png, lat, lng }) => ({ name, postal, flag: flag_png, lat, lng }),
 );
 
-const countries = {
+const Countries = {
     /**
      * @param {string} queryName country string for searching
      * @param {number} k number of countries to return
@@ -61,4 +61,4 @@ function geoDistance(p1, p2) {
     return distance;
 }
 
-module.exports = countries;
+module.exports = Countries;

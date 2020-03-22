@@ -7,7 +7,7 @@ const get = util.promisify(request.get);
 
 const LOCALHOST_ADDRESS = '::ffff:127.0.0.1';
 
-const locationService = {
+const LocationService = {
     /**
      * Retrieve geolocation information from an ip address.
      * @throws
@@ -29,4 +29,4 @@ const locationService = {
     }
 };
 
-module.exports = locationService;
+module.exports = LocationService;
