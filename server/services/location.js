@@ -1,0 +1,27 @@
+const request = require('request');
+const util = require('util');
+
+const locationEndpoint = process.env.LOCATION_SERVICE_URL;
+const locationAccessKey = process.env.LOCATION_SERVICE_KEY;
+const get = util.promisify(request.get);
+
+const locationService = {
+    /**
+     * @throws
+     * @param {string} ip IP to retrieve location
+     * @returns {{ lat: number, lng: number }} the current location
+     */
+    async getLocation(ip = 'check') {
+        try {
+            const url = `${locationEndpoint}/${ip}?access_key=${locationAccessKey}`;
+            const { body: location } = await get({ url, json: true });
+            const { latitude: lat, longitude: lng } = location;
+            return { lat, lng };
+        } catch (error) {
+            console.error(error);
+            throw new Error('location service error');
+        }
+    }
+};
+
+module.exports = locationService;
