@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import Autocomplete, { AutocompleteItem } from '../presentational/Autocomplete';
 import CountryFlag from '../presentational/CountryFlag';
@@ -23,9 +23,17 @@ const CountryAutocomplete = () => {
         autocompleteClosestCountries(debouncedQuery).then(setCountries);
     }, [debouncedQuery, showResults]);
 
-    const renderCountryItem = ({ postal, name, flag }) => {
-        const matchingText = name.substr(0, query.length);
-        const text = name.substr(query.length);
+    const updateValue = useCallback((value) => {
+        // If the user starts typing again, show the results.
+        if (!showResults) {
+            setShowResults(true);
+        }
+        setQuery(value);
+    }, [showResults]);
+
+    const renderCountryItem = useCallback(({ postal, name, flag }) => {
+        const matchingText = name.substr(0, debouncedQuery.length);
+        const text = name.substr(debouncedQuery.length);
         return (
             <AutocompleteItem
                 key={`${postal}-${name}`}
@@ -42,20 +50,14 @@ const CountryAutocomplete = () => {
                 {text}
             </AutocompleteItem>
         );
-    };
+    }, [debouncedQuery]);
 
     return (
         <Autocomplete
             label="Find the closest country"
             placeholder="Country"
             value={query}
-            onChange={(value) => {
-                // If the user starts typing again, show the results.
-                if (!showResults) {
-                    setShowResults(true);
-                }
-                setQuery(value);
-            }}
+            onChange={updateValue}
         >
             {showResults && countries.map(renderCountryItem)}
         </Autocomplete>
