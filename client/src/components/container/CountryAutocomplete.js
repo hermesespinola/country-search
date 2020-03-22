@@ -2,29 +2,33 @@ import React, { useState, useEffect } from 'react';
 
 import Autocomplete, { AutocompleteItem } from '../presentational/Autocomplete';
 import { autcompleteClosestCountries } from '../../api';
+import { useDebounce } from '../../hooks';
 
 const CountryAutocomplete = () => {
-    const [inputValue, setInputValue] = useState('');
+    const [debouncedQuery, query, setQuery] = useDebounce('', 300);
     const [countries, setCountries] = useState([]);
 
     useEffect(() => {
-        console.log(inputValue);
-        if (!inputValue) {
+        console.log(debouncedQuery);
+        if (!debouncedQuery) {
+            if (countries.length > 0) {
+                setCountries([]);
+            }
             return;
         }
 
-        autcompleteClosestCountries(inputValue)
+        autcompleteClosestCountries(debouncedQuery)
             .then(countries => {
                 setCountries(countries);
                 console.log(countries);
             });
-    }, [inputValue]);
+    }, [debouncedQuery]);
 
     return (
         <Autocomplete
-            value={inputValue}
+            value={query}
             onChange={(event) => {
-                setInputValue(event.target.value);
+                setQuery(event.target.value);
             }}
         >
             {countries.map(country => (
