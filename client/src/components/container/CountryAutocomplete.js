@@ -50,7 +50,7 @@ const CountryAutocomplete = () => {
     return (
         <Autocomplete
             label="Find the closest country"
-            placeholder={"Country"}
+            placeholder="Country"
             value={query}
             onChange={(value) => {
                 // If the user starts typing again, show the results.

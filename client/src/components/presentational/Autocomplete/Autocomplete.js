@@ -7,7 +7,7 @@ import './Autocomplete.css';
 
 const Autocomplete = ({ children, label, placeholder, value, onChange }) => (
     <div className="autocomplete-container">
-        {label && <Label color="#a3d3ff">Find the closest country</Label>}
+        {label && <Label color="#a3d3ff">{label}</Label>}
         <input
             className="autocomplete-input"
             value={value}
