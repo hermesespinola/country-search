@@ -29,7 +29,7 @@ const CountryAutocomplete = () => {
             setShowResults(true);
         }
         setQuery(value);
-    }, [showResults]);
+    }, [showResults, setQuery]);
 
     const renderCountryItem = useCallback(({ postal, name, flag }) => {
         const matchingText = name.substr(0, debouncedQuery.length);
@@ -50,7 +50,7 @@ const CountryAutocomplete = () => {
                 {text}
             </AutocompleteItem>
         );
-    }, [debouncedQuery]);
+    }, [debouncedQuery, setQuery]);
 
     return (
         <Autocomplete
