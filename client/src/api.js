@@ -1,9 +1,5 @@
 const API_ENDPOINT = 'http://127.0.0.1:3001';
-const autocompleteEndpoint = 'closest-countries';
-
-const apiCache = new Map([
-    [autocompleteEndpoint, new Map()]
-]);
+const AUTOCOMPLETE_ENDPOINT = 'closest-countries';
 
 /**
  * Fetches the closest countries with that matches the countryStr.
@@ -11,16 +7,8 @@ const apiCache = new Map([
  */
 export const autocompleteClosestCountries = async (countryStr) => {
     const queryName = countryStr.toLowerCase();
-    const autocompleteCache = apiCache.get(autocompleteEndpoint);
-    const cachedResponse = autocompleteCache.get(queryName);
-
-    if (!cachedResponse) {
-        const autocompleteResponse = await fetch(`${API_ENDPOINT}/${autocompleteEndpoint}?name=${queryName}`);
-        const countries = await autocompleteResponse.json();
-        autocompleteCache.set(queryName, countries);
-        return countries;
-    }
-
-    console.log('cached!');
-    return cachedResponse;
+    const autocompleteUrl = `${API_ENDPOINT}/${AUTOCOMPLETE_ENDPOINT}`;
+    const autocompleteResponse = await fetch(`${autocompleteUrl}?name=${queryName}`);
+    const countries = await autocompleteResponse.json();
+    return countries;
 };

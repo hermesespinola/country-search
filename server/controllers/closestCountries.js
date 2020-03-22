@@ -17,6 +17,8 @@ async function closestCountries(req, res) {
     try {
         const location = await LocationService.getLocation(clientAddress);
         const countries = Countries.closestCountries(name, limit, location);
+
+        res.header('Cache-Control', 'private, max-age=315360');
         res.send(countries);
     } catch (error) {
         res.status(500).send(error.message);
