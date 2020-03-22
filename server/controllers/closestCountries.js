@@ -1,4 +1,4 @@
-const countriesService = require('../services/countries');
+const countries = require('../data/countries');
 const locationService = require('../services/location');
 const { getRequestAddress } = require('../util');
 
@@ -16,8 +16,8 @@ async function closestCountries(req, res) {
 
     try {
         const location = await locationService.getLocation(clientAddress);
-        const countries = countriesService.closestCountries(name, limit, location);
-        res.send(countries);
+        const closest = countries.closestCountries(name, limit, location);
+        res.send(closest);
     } catch (error) {
         res.status(500).send(error.message);
     }
