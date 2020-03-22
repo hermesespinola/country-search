@@ -16,15 +16,12 @@ const CountryAutocomplete = () => {
         // Don't fetch data if the query is empty or
         // if we don't want to show the results.
         if (!debouncedQuery || !showResults) {
-            if (countries.length > 0) {
-                setCountries([]);
-            }
-
+            setCountries([]);
             return;
         }
 
         autocompleteClosestCountries(debouncedQuery).then(setCountries);
-    }, [debouncedQuery, showResults, countries.length]);
+    }, [debouncedQuery, showResults]);
 
     const renderCountryItem = ({ postal, name, flag }) => {
         const matchingText = name.substr(0, query.length);
