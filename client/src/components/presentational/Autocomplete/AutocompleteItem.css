@@ -1,6 +1,14 @@
 .autocomplete-item {
     border: 1px solid lightgray;
     border-top: none;
+    cursor: pointer;
     text-align: left;
     padding: 10px;
+    z-index: 999;
+    width: 100%;
+    background-color: white;
+}
+
+.autocomplete-item:hover {
+    background-color: gray;
 }

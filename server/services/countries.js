@@ -4,13 +4,13 @@ const countriesFile = fs.readFileSync(process.env.COUNTRIES_FILE, 'utf8');
 const contents = JSON.parse(countriesFile);
 
 /**
- * @typedef {{ name: string, lat: number, lng: number }} Country
+ * @typedef {{ name: string, postal: string, lat: number, lng: number }} Country
  * @typedef {{ lat: number, lng: string }} LatLng
  */
 
 /** @type {Country[]} */
 const countriesMetadata = contents.countries.map(
-    ({ name, lat, lng }) => ({ name, lat, lng }),
+    ({ name, postal, lat, lng }) => ({ name, postal, lat, lng }),
 );
 
 const countriesService = {

@@ -9,11 +9,8 @@ const CountryAutocomplete = () => {
     const [countries, setCountries] = useState([]);
 
     useEffect(() => {
-        console.log(debouncedQuery);
         if (!debouncedQuery) {
-            if (countries.length > 0) {
-                setCountries([]);
-            }
+            setCountries([]);
             return;
         }
 
@@ -26,13 +23,14 @@ const CountryAutocomplete = () => {
 
     return (
         <Autocomplete
+            label="Find the closest country"
             value={query}
             onChange={(event) => {
                 setQuery(event.target.value);
             }}
         >
-            {countries.map(country => (
-                <AutocompleteItem key={country.postal}>{country.name}</AutocompleteItem>
+            {countries.map(({ postal, name }) => (
+                <AutocompleteItem key={`${postal}-${name}`}>{name}</AutocompleteItem>
             ))}
         </Autocomplete>
     );
