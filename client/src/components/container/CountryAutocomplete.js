@@ -21,6 +21,17 @@ const CountryAutocomplete = () => {
             });
     }, [debouncedQuery]);
 
+    const renderCountryItem = ({ postal, name }) => {
+        const matchingText = name.substr(0, query.length);
+        const text = name.substr(query.length);
+        return (
+            <AutocompleteItem key={`${postal}-${name}`}>
+                <strong>{matchingText}</strong>
+                {text}
+            </AutocompleteItem>
+        );
+    };
+
     return (
         <Autocomplete
             label="Find the closest country"
@@ -29,9 +40,7 @@ const CountryAutocomplete = () => {
                 setQuery(event.target.value);
             }}
         >
-            {countries.map(({ postal, name }) => (
-                <AutocompleteItem key={`${postal}-${name}`}>{name}</AutocompleteItem>
-            ))}
+            {countries.map(renderCountryItem)}
         </Autocomplete>
     );
 };
