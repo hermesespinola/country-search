@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Label from './components/presentational/Label';
 import CountryAutocomplete from './components/container/CountryAutocomplete';
 import './App.css';
 

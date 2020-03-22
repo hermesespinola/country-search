@@ -1,11 +1,12 @@
 .autocomplete-container {
     position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
 }
 
 .autocomplete-input {
     background-color: #f1f1f1;
     border: none;
-    font-size: 25px;
+    font-size: 22px;
     padding: 10px;
 }
