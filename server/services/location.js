@@ -9,9 +9,10 @@ const LOCALHOST_ADDRESS = '::ffff:127.0.0.1';
 
 const locationService = {
     /**
+     * Retrieve geolocation information from an ip address.
      * @throws
-     * @param {string} ip IP to retrieve location
-     * @returns {{ lat: number, lng: number }} the current location
+     * @param {string} ip IP to retrieve location.
+     * @returns {{ lat: number, lng: number }} the current location.
      */
     async getLocation(ip = 'check') {
         const address = ip === LOCALHOST_ADDRESS ? 'check' : ip;

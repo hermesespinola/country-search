@@ -13,7 +13,7 @@ app.use(cors());
 
 app.set('trust proxy', true);
 
-app.get('/health', (req, res) => {
+app.get('/health', () => {
     res.send('Hello!');
 });
 app.get('/closest-countries', closestCountriesController);

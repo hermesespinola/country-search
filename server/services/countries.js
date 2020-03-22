@@ -1,10 +1,14 @@
 const fs = require('fs');
-const countriesFilePath = process.env.COUNTRIES_FILE;
 
-const countriesFile = fs.readFileSync(countriesFilePath, 'utf8');
+const countriesFile = fs.readFileSync(process.env.COUNTRIES_FILE, 'utf8');
 const contents = JSON.parse(countriesFile);
 
-/** @type {{ name: string, postal: string, lat: number, lng: number }[]} */
+/**
+ * @typedef {{ name: string, postal: string, lat: number, lng: number }} Country
+ * @typedef {{ lat: number, lng: string }} LatLng
+ */
+
+/** @type {Country[]} */
 const countriesMetadata = contents.countries.map(
     ({ name, postal, lat, lng }) => ({ name, postal, lat, lng }),
 );
@@ -13,7 +17,7 @@ const countriesService = {
     /**
      * @param {string} queryName country string for searching
      * @param {number} k number of countries to return
-     * @param {{ lat: number, lng: string }} location
+     * @param {LatLng} location
      */
     closestCountries(queryName, limit, location) {
         const queryLower = queryName.toLowerCase();
@@ -37,8 +41,8 @@ function deg2rad(deg) {
 
 /**
  * Calculate distance between two points
- * @param {{lat: number, lng: number}} p1
- * @param {{lat: number, lng: number}} p2
+ * @param {LatLng} p1
+ * @param {LatLng} p2
  */
 function geoDistance(p1, p2) {
     const deltaLat = deg2rad(p2.lat - p1.lat);

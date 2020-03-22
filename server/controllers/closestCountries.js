@@ -4,6 +4,11 @@ const { getRequestAddress } = require('../util');
 
 const DEFAULT_LIMIT = 5;
 
+/**
+ * Provide with countries filtered by name and sorted by closest to request location.
+ * @param {Request} req express request
+ * @param {Response} res express response
+ */
 async function closestCountries(req, res) {
     const { name } = req.query;
     const limit = parseInt(req.query.limit) || DEFAULT_LIMIT;
