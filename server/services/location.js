@@ -5,6 +5,8 @@ const locationEndpoint = process.env.LOCATION_SERVICE_URL;
 const locationAccessKey = process.env.LOCATION_SERVICE_KEY;
 const get = util.promisify(request.get);
 
+const LOCALHOST_ADDRESS = '::ffff:127.0.0.1';
+
 const locationService = {
     /**
      * @throws
@@ -12,10 +14,12 @@ const locationService = {
      * @returns {{ lat: number, lng: number }} the current location
      */
     async getLocation(ip = 'check') {
+        const address = ip === LOCALHOST_ADDRESS ? 'check' : ip;
         try {
-            const url = `${locationEndpoint}/${ip}?access_key=${locationAccessKey}`;
+            const url = `${locationEndpoint}/${address}?access_key=${locationAccessKey}`;
             const { body: location } = await get({ url, json: true });
             const { latitude: lat, longitude: lng } = location;
+            console.log('location:', location);
             return { lat, lng };
         } catch (error) {
             console.error(error);
