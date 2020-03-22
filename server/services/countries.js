@@ -12,13 +12,18 @@ const countriesMetadata = contents.countries.map(
 
 const countriesService = {
     /**
-     * 
+     * @param {string} queryName country string for searching
      * @param {number} k number of countries to return
      * @param {{ lat: number, lng: string }} location
      */
-    closestCountries(k, location) {
+    closestCountries(queryName, limit, location) {
+        const queryLower = queryName.toLowerCase();
         console.log('req location:', location);
-        return countriesMetadata.slice(0, k);
+        const nameMatch = countriesMetadata.filter(
+            ({ name }) => name.toLowerCase().startsWith(queryLower),
+        );
+        console.log({ nameMatch });
+        return nameMatch.slice(0, limit);
     },
 };
 
